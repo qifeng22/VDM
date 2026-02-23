@@ -44,11 +44,3 @@ This code has been tested in the following environment. Other versions might als
 
 Please refer to **[docs/INSTALL.md](docs/INSTALL.md)** for detailed step-by-step installation instructions, including environment setup and dependency installation.
 
-This project is based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
-
-```bash
-# Clone the repository
-git clone https://github.com/qifeng22/VDM.git
-cd VDM
-# Install OpenPCDet
-python setup.py develop

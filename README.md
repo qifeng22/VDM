@@ -32,6 +32,14 @@ We provide the checkpoints and logs for our main models.
 
 ## 🛠️ Getting Started
 
+### Environment Requirements
+This code has been tested in the following environment. Other versions might also work, but we recommend matching these for the best compatibility:
+- **OS:** Linux (Ubuntu)
+- **Python:** 3.10
+- **CUDA:** 11.8
+- **PyTorch:** 2.1.0
+- **Spconv:** 2.3.6 (`spconv-cu118`)
+
 ### Installation
 This project is based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
 
@@ -40,8 +48,6 @@ This project is based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
 git clone https://github.com/qifeng22/VDM.git
 cd VDM
 
-# Install dependent libraries
-pip install -r requirements.txt
 
 # Install OpenPCDet
 python setup.py develop

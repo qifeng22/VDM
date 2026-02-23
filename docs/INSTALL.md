@@ -11,8 +11,8 @@ All the codes are tested in the following environment:
 
 **1. Clone the repository**
 ```bash
-git clone [https://github.com/qifeng22/VDM.git](https://github.com/qifeng22/VDM.git)
-cd VDM
+git clone https://github.com/qifeng22/VDM-main.git
+cd VDM-main
 ```
 
 **2. Install core dependencies**

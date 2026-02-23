@@ -41,6 +41,9 @@ This code has been tested in the following environment. Other versions might als
 - **Spconv:** 2.3.6 (`spconv-cu118`)
 
 ### Installation
+
+Please refer to **[docs/INSTALL.md](docs/INSTALL.md)** for detailed step-by-step installation instructions, including environment setup and dependency installation.
+
 This project is based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
 
 ```bash

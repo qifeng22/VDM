@@ -47,7 +47,5 @@ This project is based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
 # Clone the repository
 git clone https://github.com/qifeng22/VDM.git
 cd VDM
-
-
 # Install OpenPCDet
 python setup.py develop

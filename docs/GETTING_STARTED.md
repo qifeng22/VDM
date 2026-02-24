@@ -1,7 +1,7 @@
 # Getting Started
 
 ## Dataset Preparation
-LION supports KITTI, nuScenes, Waymo, Argoverse V2 and ONCE dataset. For these dataset preparations, please refer to [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). 
+Our dataset organization and data preparation perfectly follow OpenPCDet. Please refer to the official [OpenPCDet Dataset Preparation](https://github.com/open-mmlab/OpenPCDet/blob/master/docs/GETTING_STARTED.md) guidelines to set up the datasets (e.g., Waymo, nuScenes, Argoverse 2, ONCE).
 
 
 ## Training & Testing

@@ -44,3 +44,19 @@ This code has been tested in the following environment. Other versions might als
 
 Please refer to **[docs/INSTALL.md](docs/INSTALL.md)** for detailed step-by-step installation instructions, including environment setup and dependency installation.
 
+### Quick Start
+
+Please refer to **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)** to learn how to prepare the datasets and run the training and testing scripts.
+
+## 🙏 Acknowledgements
+
+Our codebase integrates and builds upon the LION framework and OpenPCDet. We sincerely thank the authors for their outstanding work:
+
+```bibtex
+@article{liu2024lion,
+  title={LION: Linear Group RNN for 3D Object Detection in Point Clouds},
+  author={Zhe Liu, Jinghua Hou, Xingyu Wang, Xiaoqing Ye, Jingdong Wang, Hengshuang Zhao, Xiang Bai},
+  journal={Advances in Neural Information Processing Systems},
+  year={2024}
+}
+```

@@ -186,17 +186,60 @@ class FlattenedWindowMapping(nn.Module):
 
         return mappings
 
+from functools import partial
+norm_fn_1d = partial(nn.BatchNorm1d, eps=1e-3, momentum=0.01)
+
+def post_act_block_sparse_3d(input_dim, output_dim, kernel_size, stride=1, padding=0, norm_fn=norm_fn_1d, conv_type='subm', indice_key=None):
+
+    if conv_type == 'subm':
+        conv = spconv.SubMConv3d(input_dim, output_dim, kernel_size, bias=False, indice_key=indice_key)
+
+    elif conv_type == 'spconv':
+        conv = spconv.SparseConv3d(input_dim, output_dim, kernel_size, stride=stride, padding=padding, bias=False, indice_key=indice_key)
+
+    elif conv_type == 'inverseconv':
+        conv = spconv.SparseInverseConv3d(input_dim, output_dim, kernel_size, indice_key=indice_key, bias=False)
+
+    else:
+        raise NotImplementedError
+
+    return spconv.SparseSequential(conv, norm_fn(output_dim), nn.ReLU())
+
+class SparseBasicBlock3D(spconv.SparseModule):
+
+    def __init__(self, dim, indice_key, norm_fn=norm_fn_1d, bias=True):
+        super(SparseBasicBlock3D, self).__init__()
+
+        self.conv1 = spconv.SubMConv3d(dim, dim, 3, 1, 1, bias=bias, indice_key=indice_key)
+        self.bn1 = norm_fn(dim)
+
+        self.conv2 = spconv.SubMConv3d(dim, dim, 3, 1, 1, bias=bias, indice_key=indice_key)
+        self.bn2 = norm_fn(dim)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        out = self.conv1(x)
+        out = out.replace_feature(self.bn1(out.features))
+        out = out.replace_feature(self.relu(out.features))
+
+        out = self.conv2(out)
+        out = out.replace_feature(self.bn2(out.features))
+        out = out.replace_feature(self.relu(out.features + x.features))
+        return out
 
 class PatchMerging3D(nn.Module):
-    def __init__(self, dim, out_dim=-1, down_scale=[2, 2, 2], norm_layer=nn.LayerNorm, diffusion=False, diff_scale=0.2):
+    def __init__(self, dim, out_dim=-1, down_scale=[2, 2, 2], norm_layer=nn.LayerNorm, diffusion=False, diff_scale=0.2, dataset_name='other'):
         super().__init__()
         self.dim = dim
 
-        self.sub_conv = spconv.SparseSequential(
-            spconv.SubMConv3d(dim, dim, 3, bias=False, indice_key='subm'),
-            nn.LayerNorm(dim),
-            nn.GELU(),
-        )
+        if dataset_name != "nuScenes":
+            self.sub_conv = spconv.SparseSequential(
+                spconv.SubMConv3d(dim, dim, 3, bias=False, indice_key='subm'),
+                nn.LayerNorm(dim),
+                nn.GELU(),
+            )
+        else:
+            self.sub_conv = SparseBasicBlock3D(dim,indice_key='hebing')
 
         if out_dim == -1:
             self.norm = norm_layer(dim)
@@ -393,7 +436,7 @@ class PositionEmbeddingLearned(nn.Module):
 
 class LIONBlock(nn.Module):
     def __init__(self, dim: int, depth: int, down_scales: list, window_shape, group_size, direction, shift=False,
-                 operator=None, layer_id=0, n_layer=0):
+                 operator=None, layer_id=0, n_layer=0,dataset_name='other'):
         super().__init__()
 
         self.down_scales = down_scales
@@ -408,7 +451,7 @@ class LIONBlock(nn.Module):
         for idx in range(depth):
             self.encoder.append(LIONLayer(dim, 1, window_shape, group_size, direction, shift[idx], operator, layer_id + idx * 2, n_layer))
             self.pos_emb_list.append(PositionEmbeddingLearned(input_channel=3, num_pos_feats=dim))
-            self.downsample_list.append(PatchMerging3D(dim, dim, down_scale=down_scales[idx], norm_layer=norm_fn))
+            self.downsample_list.append(PatchMerging3D(dim, dim, down_scale=down_scales[idx], norm_layer=norm_fn,dataset_name=dataset_name))
 
         self.decoder = nn.ModuleList()
         self.decoder_norm = nn.ModuleList()
@@ -595,6 +638,8 @@ class LION3DBackboneOneStride(nn.Module):
         self.group_size = model_cfg.GROUP_SIZE
         self.layer_dim = model_cfg.LAYER_DIM
         self.linear_operator = model_cfg.OPERATOR
+        # 如果存在就读取，如果不存在就返回默认值 'other'
+        dataset_name = getattr(model_cfg, 'DATASET_NAME', 'other')
         
         self.n_layer = len(depths) * depths[0] * 2 * 2 + 2
 
@@ -628,33 +673,33 @@ class LION3DBackboneOneStride(nn.Module):
 
         
         self.linear_1 = LIONBlock(self.layer_dim[0], depths[0], layer_down_scales[0], self.window_shape[0],
-                                    self.group_size[0], direction, shift=shift, operator=self.linear_operator, layer_id=0, n_layer=self.n_layer)  ##[27, 27, 32] --》 [13, 13, 32]
+                                    self.group_size[0], direction, shift=shift, operator=self.linear_operator, layer_id=0, n_layer=self.n_layer, dataset_name=dataset_name)  ##[27, 27, 32] --》 [13, 13, 32]
 
         self.dow1 = PatchMerging3D(self.layer_dim[0], self.layer_dim[0], down_scale=[1, 1, 2],
-                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale)
+                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale, dataset_name=dataset_name)
         
 
         # [944, 944, 16] -> [472, 472, 8]
         self.linear_2 = LIONBlock(self.layer_dim[1], depths[1], layer_down_scales[1], self.window_shape[1],
-                                    self.group_size[1], direction, shift=shift, operator=self.linear_operator, layer_id=8, n_layer=self.n_layer)
+                                    self.group_size[1], direction, shift=shift, operator=self.linear_operator, layer_id=8, n_layer=self.n_layer, dataset_name=dataset_name)
 
         self.dow2 = PatchMerging3D(self.layer_dim[1], self.layer_dim[1], down_scale=[1, 1, 2],
-                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale)
+                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale, dataset_name=dataset_name)
 
 
         #  [236, 236, 8] -> [236, 236, 4]
         self.linear_3 = LIONBlock(self.layer_dim[2], depths[2], layer_down_scales[2], self.window_shape[2],
-                                    self.group_size[2], direction, shift=shift, operator=self.linear_operator, layer_id=16, n_layer=self.n_layer)
+                                    self.group_size[2], direction, shift=shift, operator=self.linear_operator, layer_id=16, n_layer=self.n_layer, dataset_name=dataset_name)
 
         self.dow3 = PatchMerging3D(self.layer_dim[2], self.layer_dim[3], down_scale=[1, 1, 2],
-                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale)
+                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale, dataset_name=dataset_name)
 
         #  [236, 236, 4] -> [236, 236, 2]
         self.linear_4 = LIONBlock(self.layer_dim[3], depths[3], layer_down_scales[3], self.window_shape[3],
-                                    self.group_size[3], direction, shift=shift, operator=self.linear_operator, layer_id=24, n_layer=self.n_layer)
+                                    self.group_size[3], direction, shift=shift, operator=self.linear_operator, layer_id=24, n_layer=self.n_layer, dataset_name=dataset_name)
 
         self.dow4 = PatchMerging3D(self.layer_dim[3], self.layer_dim[3], down_scale=[1, 1, 2],
-                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale)
+                                     norm_layer=norm_fn, diffusion=diffusion, diff_scale=diff_scale, dataset_name=dataset_name)
 
         self.linear_out = LIONLayer(self.layer_dim[3], 1, [13, 13, 2], 256, direction=['x', 'y'], shift=shift,
                                       operator=self.linear_operator, layer_id=32, n_layer=self.n_layer)

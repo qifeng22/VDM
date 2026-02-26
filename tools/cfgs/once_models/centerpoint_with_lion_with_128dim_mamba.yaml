@@ -33,7 +33,7 @@ MODEL:
         NUM_FILTERS: [64, 64]
 
     BACKBONE_3D:
-        NAME: LION3DBackboneOneStride
+        NAME: LION3DBackboneOneStride_once
         FEATURE_DIM: 128
         LAYER_DIM: [128, 128, 128, 128]
         NUM_LAYERS: 4

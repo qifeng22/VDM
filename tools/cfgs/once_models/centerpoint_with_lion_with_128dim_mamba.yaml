@@ -15,7 +15,7 @@ DATA_CONFIG:
           }
 
         - NAME: transform_points_to_voxels
-          VOXEL_SIZE: [ 0.4, 0.4, 0.25 ]
+          VOXEL_SIZE: [ 0.1, 0.1, 0.25 ]
           MAX_POINTS_PER_VOXEL: 5
           MAX_NUMBER_OF_VOXELS: {
               'train': 60000,
@@ -30,7 +30,7 @@ MODEL:
         WITH_DISTANCE: False
         USE_ABSLOTE_XYZ: True
         USE_NORM: True
-        NUM_FILTERS: [128, 128]
+        NUM_FILTERS: [64, 64]
 
     BACKBONE_3D:
         NAME: LION3DBackboneOneStride
@@ -88,7 +88,7 @@ MODEL:
             }
 
         TARGET_ASSIGNER_CONFIG:
-            FEATURE_MAP_STRIDE: 1 #8
+            FEATURE_MAP_STRIDE: 4 #8
             NUM_MAX_OBJS: 500
             GAUSSIAN_OVERLAP: 0.1
             MIN_RADIUS: 2

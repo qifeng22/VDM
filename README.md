@@ -25,10 +25,10 @@ We provide the checkpoints and logs for our main models.
 
 | Model | Dataset | Split | Metric | Performance | Download |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **VDM** | Waymo | Val | L2 mAPH | **74.8** | [Coming Soon] |
-| **VDM** | nuScenes | Val | mAP | **68.1** | [Coming Soon] |
-| **VDM** | Argoverse 2 | Val | mAP | **42.3** | [Coming Soon] |
-| **VDM** | ONCE | Val | mAP | **67.6** | [Coming Soon] |
+| **VDM** | Waymo | Val | L2 mAPH | **74.8** | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM** | nuScenes | Val | mAP | **68.1** | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM** | Argoverse 2 | Val | mAP | **42.3** | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM** | ONCE | Val | mAP | **67.6** | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
 
 ## 🛠️ Getting Started
 

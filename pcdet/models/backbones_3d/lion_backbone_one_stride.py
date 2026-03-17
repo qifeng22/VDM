@@ -640,6 +640,8 @@ class LION3DBackboneOneStride(nn.Module):
         self.linear_operator = model_cfg.OPERATOR
         # 如果存在就读取，如果不存在就返回默认值 'other'
         dataset_name = getattr(model_cfg, 'DATASET_NAME', 'other')
+
+        OD_method = getattr(model_cfg, 'OD_METHOD', False)
         
         self.n_layer = len(depths) * depths[0] * 2 * 2 + 2
 
@@ -659,16 +661,30 @@ class LION3DBackboneOneStride(nn.Module):
         assert len(layer_down_scales[0]) == depths[0]
         assert len(self.layer_dim) == len(depths)
 
-        self.stem = spconv.SparseSequential(
-            post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+        if OD_method:
+            self.stem = spconv.SparseSequential(
+            # post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
 
-            SparseBasicBlock3D(32, indice_key='conv1'),
-            SparseBasicBlock3D(32, indice_key='conv1'),
-            post_act_block_sparse_3d(32, 64, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # post_act_block_sparse_3d(32, 64, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
 
-            SparseBasicBlock3D(64, indice_key='conv2'),
-            SparseBasicBlock3D(64, indice_key='conv2'),
-            post_act_block_sparse_3d(64, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # post_act_block_sparse_3d(64, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
+            post_act_block_sparse_3d(input_channels, self.layer_dim[0], 3, 1, 1, indice_key='spconv2', conv_type='spconv'),)
+        else:
+
+            self.stem = spconv.SparseSequential(
+                post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+
+                SparseBasicBlock3D(32, indice_key='conv1'),
+                SparseBasicBlock3D(32, indice_key='conv1'),
+                post_act_block_sparse_3d(32, 64, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
+
+                SparseBasicBlock3D(64, indice_key='conv2'),
+                SparseBasicBlock3D(64, indice_key='conv2'),
+                post_act_block_sparse_3d(64, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
 
 
         
@@ -801,17 +817,33 @@ class LION3DBackboneOneStride_once(nn.Module):
         assert len(layer_down_scales) == len(depths)
         assert len(layer_down_scales[0]) == depths[0]
         assert len(self.layer_dim) == len(depths)
+        OD_method = getattr(model_cfg, 'OD_METHOD', False)
+        if OD_method:
+            self.stem = spconv.SparseSequential(
+            # post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
 
-        self.stem = spconv.SparseSequential(
-            post_act_block_sparse_3d(input_channels, 16, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # # post_act_block_sparse_3d(32, 64, 3, 1, 1, indice_key='spconv1', conv_type='spconv'),
+            # post_act_block_sparse_3d(32, 64, 3, 1, 1, indice_key='subm1', conv_type='subm'),
 
-            SparseBasicBlock3D(16, indice_key='conv1'),
-            SparseBasicBlock3D(16, indice_key='conv1'),
-            post_act_block_sparse_3d(16, 32, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # # post_act_block_sparse_3d(128, 128, 3, 1, 1, indice_key='subm1', conv_type='subm'),)
 
-            SparseBasicBlock3D(32, indice_key='conv2'),
-            SparseBasicBlock3D(32, indice_key='conv2'),
-            post_act_block_sparse_3d(32, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
+            post_act_block_sparse_3d(input_channels, self.layer_dim[0], 3, 1, 1, indice_key='spconv2', conv_type='spconv'),)
+        else:
+
+            self.stem = spconv.SparseSequential(
+                post_act_block_sparse_3d(input_channels, 16, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+
+                SparseBasicBlock3D(16, indice_key='conv1'),
+                SparseBasicBlock3D(16, indice_key='conv1'),
+                post_act_block_sparse_3d(16, 32, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
+
+                SparseBasicBlock3D(32, indice_key='conv2'),
+                SparseBasicBlock3D(32, indice_key='conv2'),
+                post_act_block_sparse_3d(32, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
 
 
         
@@ -945,17 +977,35 @@ class LION3DBackboneOneStride_Sparse(nn.Module):
         assert len(layer_down_scales[0]) == depths[0]
         assert len(self.layer_dim) == len(depths)
 
+        OD_method = getattr(model_cfg, 'OD_METHOD', False)
+
+        if OD_method:
+            self.stem = spconv.SparseSequential(
+            # post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # SparseBasicBlock3D(32, indice_key='conv1'),
+            # # post_act_block_sparse_3d(32, 64, 3, 1, 1, indice_key='spconv1', conv_type='spconv'),
+            # post_act_block_sparse_3d(32, 64, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # SparseBasicBlock3D(64, indice_key='conv2'),
+            # # post_act_block_sparse_3d(128, 128, 3, 1, 1, indice_key='subm1', conv_type='subm'),)
+
+            post_act_block_sparse_3d(input_channels, self.layer_dim[0], 3, 1, 1, indice_key='spconv2', conv_type='spconv'),)
+        else:
+
         
-        self.stem = spconv.SparseSequential(
-            post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
+            self.stem = spconv.SparseSequential(
+                post_act_block_sparse_3d(input_channels, 32, 3, 1, 1, indice_key='subm1', conv_type='subm'),
 
-            SparseBasicBlock3D(32, indice_key='conv1'),
-            SparseBasicBlock3D(32, indice_key='conv1'),
-            post_act_block_sparse_3d(32, 64, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
+                SparseBasicBlock3D(32, indice_key='conv1'),
+                SparseBasicBlock3D(32, indice_key='conv1'),
+                post_act_block_sparse_3d(32, 64, 3, (1,2,2), 1, indice_key='spconv1', conv_type='spconv'),
 
-            SparseBasicBlock3D(64, indice_key='conv2'),
-            SparseBasicBlock3D(64, indice_key='conv2'),
-            post_act_block_sparse_3d(64, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
+                SparseBasicBlock3D(64, indice_key='conv2'),
+                SparseBasicBlock3D(64, indice_key='conv2'),
+                post_act_block_sparse_3d(64, self.layer_dim[0], 3, (1,2,2), 1, indice_key='spconv2', conv_type='spconv'),)
 
 
 

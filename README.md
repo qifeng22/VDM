@@ -25,14 +25,14 @@ We provide the checkpoints and logs for our main models, including the full VDM 
 
 | Model | Dataset | Split | Metric | Performance | Config | Download |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **VDM** | Waymo | Val | L2 mAPH | **74.8** | `cfgs/waymo_models/vdm.yaml` | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | Waymo | Val | L2 mAPH | **74.8** | `cfgs/waymo_models/vdm_od.yaml` | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | nuScenes | Val | mAP | **68.1** | `cfgs/nuscenes_models/vdm.yaml` | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | nuScenes | Val | mAP | **68.5** | `cfgs/nuscenes_models/vdm_od.yaml` | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | Argoverse 2 | Val | mAP | **42.3** | `cfgs/argo2_models/vdm.yaml` | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | Argoverse 2 | Val | mAP | **42.6** | `cfgs/argo2_models/vdm_od.yaml` | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | ONCE | Val | mAP | **67.6** | `cfgs/once_models/vdm.yaml` | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | ONCE | Val | mAP | **66.1** | `cfgs/once_models/vdm_od.yaml` | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
+| **VDM** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm.yaml`](tools/cfgs/VDM_lion_models/waymo_vdm.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM-OD** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm_od.yaml`](tools/cfgs/VDM_lion_models/waymo_vdm_od.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
+| **VDM** | nuScenes | Val | mAP | **68.1** | [`nuscenes_vdm.yaml`](tools/cfgs/VDM_lion_models/nuscenes_vdm.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM-OD** | nuScenes | Val | mAP | **68.5** | [`nuscenes_vdm_od.yaml`](tools/cfgs/VDM_lion_models/nuscenes_vdm_od.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
+| **VDM** | Argoverse 2 | Val | mAP | **42.3** | [`argo2_vdm.yaml`](tools/cfgs/VDM_lion_models/argo2_vdm.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM-OD** | Argoverse 2 | Val | mAP | **42.6** | [`argo2_vdm_od.yaml`](tools/cfgs/VDM_lion_models/argo2_vdm_od.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
+| **VDM** | ONCE | Val | mAP | **67.6** | [`once_vdm.yaml`](tools/cfgs/once_models/once_vdm.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
+| **VDM-OD** | ONCE | Val | mAP | **66.1** | [`once_vdm_od.yaml`](tools/cfgs/once_models/once_vdm_od.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
 
 > **Note for Baidu Pan links:** > - **VDM** extraction code: `jk22`
 > - **VDM-OD** extraction code: `nb3f`

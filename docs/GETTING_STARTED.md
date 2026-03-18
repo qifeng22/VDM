@@ -19,7 +19,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 --master_port=29988 train.py  --tcp_port 29988  --launcher pytorch  \
 --cfg_file ./cfgs/VDM_lion_models/lion_mamba_waymo_8x_1f_1x_one_stride_128dim.yaml \
 --extra_tag lion_mamba_waymo_8x_1f_1x_one_stride_128dim \
---batch_size 16 --epochs 24 --max_ckpt_save_num 4 --workers 4 --sync_bn
+--batch_size 16 --epochs 24 --max_ckpt_save_num 4 --workers 4 --sync_bn --dataset waymo
 ```
 
 * **nuScenes:**
@@ -28,7 +28,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 --master_port=29988 train.py  --tcp_port 29988  --launcher pytorch  \
 --cfg_file ./cfgs/VDM_lion_models/lion_mamba_nusc_8x_1f_1x_one_stride_128dim.yaml \
 --extra_tag lion_mamba_nusc_8x_1f_1x_one_stride_128dim \
---batch_size 16 --epochs 36 --max_ckpt_save_num 4 --workers 4 --sync_bn
+--batch_size 16 --epochs 36 --max_ckpt_save_num 4 --workers 4 --sync_bn --dataset nuscenes
 ```
 
 * **Argoverse 2:**
@@ -37,7 +37,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 --master_port=29988 train.py  --tcp_port 29988  --launcher pytorch  \
 --cfg_file ./cfgs/VDM_lion_models/lion_mamba_1f_1x_argo_128dim_sparse_v2.yaml \
 --extra_tag lion_mamba_1f_1x_argo_128dim_sparse_v2 \
---batch_size 16 --epochs 12 --max_ckpt_save_num 4 --workers 4 --sync_bn
+--batch_size 16 --epochs 12 --max_ckpt_save_num 4 --workers 4 --sync_bn --dataset argo2
 ```
 
 * **ONCE:**
@@ -46,7 +46,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 --master_port=29988 train.py  --tcp_port 29988  --launcher pytorch  \
 --cfg_file ./cfgs/once_models/centerpoint_with_lion_with_128dim_mamba.yaml \
 --extra_tag centerpoint_with_lion_with_128dim_mamba \
---batch_size 16  --epochs 80 --max_ckpt_save_num 4 --workers 4 --sync_bn
+--batch_size 16  --epochs 80 --max_ckpt_save_num 4 --workers 4 --sync_bn --dataset once
 ```
 
 ### Testing

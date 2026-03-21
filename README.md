@@ -45,7 +45,7 @@ We provide the checkpoints and logs for our main models, including the full VDM 
 > **Note for Baidu Pan links:** > - **VDM** extraction code: `jk22`
 > - **VDM-OD** extraction code: `nb3f`
 > 
-> **Note for Hugging Face links:** > - You can also browse the full model repository directly at [hfffkk/VDM](https://huggingface.co/hfffkk/VDM).
+> **Note for Hugging Face links:** > - You can also browse the full model repository directly at [hfffkk/VDM](https://huggingface.co/hfffkk/VDM/tree/main).
 
 ## 🛠️ Getting Started
 

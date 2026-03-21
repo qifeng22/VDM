@@ -19,13 +19,6 @@ Sparsity via Pre-serialization Expansion**
 - **Pre-serialization Spatial Expansion:** Defines a new paradigm to explicitly expand the foreground voxel set before sequence flattening, addressing the sparsity limitation in serialized models.
 - **Generic Plugin:** Seamlessly integrates with state-of-the-art serialized detectors, including Transformer-based (**DSVT**) and SSM-based (**LION**) frameworks.
 
-## 🏆 Model Zoo & Main Results
-
-We provide the checkpoints and logs for our main models, including the full VDM and the Only-Densification (VDM-OD) variant.
-
-## 🏆 Model Zoo & Main Results
-
-We provide the checkpoints and logs for our main models, including the full VDM and the Only-Densification (VDM-OD) variant.
 
 ## 🏆 Model Zoo & Main Results
 

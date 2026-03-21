@@ -23,19 +23,25 @@ Sparsity via Pre-serialization Expansion**
 
 We provide the checkpoints and logs for our main models, including the full VDM and the Only-Densification (VDM-OD) variant.
 
+## 🏆 Model Zoo & Main Results
+
+We provide the checkpoints and logs for our main models, including the full VDM and the Only-Densification (VDM-OD) variant.
+
 | Model | Dataset | Split | Metric | Performance | Config | Download |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **VDM** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_waymo_8x_1f_1x_one_stride_128dim.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_waymo_8x_1f_1x_one_stride_128dimkai64_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | nuScenes | Val | mAP | **68.1** | [`nuscenes_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_nusc_8x_1f_1x_one_stride_128dim_ep48_xin.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | nuScenes | Val | mAP | **68.5** | [`nuscenes_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_nusc_8x_1f_1x_one_stride_128dim_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | Argoverse 2 | Val | mAP | **42.3** | [`argo2_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_1f_1x_argo_128dim_sparse_v2.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | Argoverse 2 | Val | mAP | **42.6** | [`argo2_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_1f_1x_argo_128dim_sparse_v2_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
-| **VDM** | ONCE | Val | mAP | **67.6** | [`once_vdm.yaml`](tools/cfgs/once_models/centerpoint_with_lion_with_128dim_mamba.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) |
-| **VDM-OD** | ONCE | Val | mAP | **66.1** | [`once_vdm_od.yaml`](tools/cfgs/once_models/centerpoint_with_lion_with_128dim_mamba_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) |
+| **VDM** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_waymo_8x_1f_1x_one_stride_128dim.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-github/waymo/checkpoint_epoch_24.pth?download=true) |
+| **VDM-OD** | Waymo | Val | L2 mAPH | **74.8** | [`waymo_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_waymo_8x_1f_1x_one_stride_128dimkai64_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-od-github/waymo/checkpoint_epoch_24.pth?download=true) |
+| **VDM** | nuScenes | Val | mAP | **68.1** | [`nuscenes_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_nusc_8x_1f_1x_one_stride_128dim_ep48_xin.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-github/nuscenes/checkpoint_epoch_48.pth?download=true) |
+| **VDM-OD** | nuScenes | Val | mAP | **68.5** | [`nuscenes_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_nusc_8x_1f_1x_one_stride_128dim_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-od-github/nuscenes/checkpoint_epoch_48.pth?download=true) |
+| **VDM** | Argoverse 2 | Val | mAP | **42.3** | [`argo2_vdm.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_1f_1x_argo_128dim_sparse_v2.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-github/argov2/checkpoint_epoch_12.pth?download=true) |
+| **VDM-OD** | Argoverse 2 | Val | mAP | **42.6** | [`argo2_vdm_od.yaml`](tools/cfgs/VDM_lion_models/lion_mamba_1f_1x_argo_128dim_sparse_v2_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-od-github/argov2/checkpoint_epoch_12.pth?download=true) |
+| **VDM** | ONCE | Val | mAP | **67.6** | [`once_vdm.yaml`](tools/cfgs/once_models/centerpoint_with_lion_with_128dim_mamba.yaml) | [Baidu Pan](https://pan.baidu.com/s/1sWUcnAvncIXQUyATdwguOA?pwd=jk22) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-github/once/checkpoint_epoch_80.pth?download=true) |
+| **VDM-OD** | ONCE | Val | mAP | **66.1** | [`once_vdm_od.yaml`](tools/cfgs/once_models/centerpoint_with_lion_with_128dim_mamba_jinkuosan.yaml) | [Baidu Pan](https://pan.baidu.com/s/1mUXlEOn8uybOsIbuTqs9HQ?pwd=nb3f) <br> [HF](https://huggingface.co/hfffkk/VDM/resolve/main/vdm-od-github/once/checkpoint_epoch_80.pth?download=true) |
 
 > **Note for Baidu Pan links:** > - **VDM** extraction code: `jk22`
 > - **VDM-OD** extraction code: `nb3f`
+> 
+> **Note for Hugging Face links:** > - You can also browse the full model repository directly at [hfffkk/VDM](https://huggingface.co/hfffkk/VDM).
 
 ## 🛠️ Getting Started
 
